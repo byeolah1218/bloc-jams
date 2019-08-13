@@ -83,22 +83,29 @@ var createSongRow = function(songNumber, songName, songLength) {
      }
  };
 
- var findParentByClassName = function(element, targetClass) {
+ var child = document.getElementsByClassName('album-view-title')[0];
+ var noParent = document.querySelector('html');
 
-     var currentParent = element.parentElement;
-     if (currentParent = undefined){
-         alert("No parent found");
-     }
-     else if (currentParent.className !== targetClass) {
-         alert("No parent found with that class name");
-     }
-     else {
-         while (currentParent.className != targetClass && currentParent.className !== null) {
-             currentParent = currentParent.parentElement;
-     }
-         return currentParent;
-     }
+
+ var findParentByClassName = function(element, targetClass) {
+    var currentParent = element.parentElement;
+
+    if (currentParent) {
+       while (currentParent.className && currentParent.className != targetClass) {
+           currentParent = currentParent.parentElement;
+       }
+
+       if (currentParent.className == targetClass) {
+           return currentParent;
+       } else {
+           alert("No parent with that class name found.");
+       }
+   } else {
+       alert("No parent found.");
+   }
  };
+
+findParentByClassName(child, 'album-view');
 
  var findParentByClassName = function(element, targetClass) {
      if (element) {
