@@ -60,14 +60,13 @@ var createSongRow = function(songNumber, songName, songLength) {
      return template;
  };
 
- var albumTitle = document.getElementsByClassName('album-view-title')[0];
- var albumArtist = document.getElementsByClassName('album-view-artist')[0];
- var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
- var albumImage = document.getElementsByClassName('album-cover-art')[0];
- var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
-
-
  var setCurrentAlbum = function(album) {
+
+     var albumTitle = document.getElementsByClassName('album-view-title')[0];
+     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+     var albumImage = document.getElementsByClassName('album-cover-art')[0];
+     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
      albumTitle.firstChild.nodeValue = album.title;
      albumArtist.firstChild.nodeValue = album.artist;
@@ -84,14 +83,27 @@ var createSongRow = function(songNumber, songName, songLength) {
  };
 
  var findParentByClassName = function(element, targetClass) {
+    var currentParent = element.parentElement;
+    while (currentParent.className != targetClass) {
+        currentParent = currentParent.parentElement;
+    }
+    return currentParent;
+};
+
+
+
+
+
+/* var findParentByClassName = function(element, targetClass) {
      if (element) {
          var currentParent = element.parentElement;
-         while (currentParent.className !== targetClass && currentParent.className !== null) {
+         while (currentParent.className !== targetClass && currentParent.className !== null && currentParent !== null) {
              currentParent = currentParent.parentElement;
          }
          return currentParent;
      }
  };
+*/
 
  var getSongItem = function(element) {
     switch (element.className) {
@@ -113,6 +125,7 @@ var createSongRow = function(songNumber, songName, songLength) {
 
 var clickHandler = function(targetElement) {
   var songItem = getSongItem(targetElement);
+
   if (currentlyPlayingSong === null) {
          songItem.innerHTML = pauseButtonTemplate;
          currentlyPlayingSong = songItem.getAttribute('data-song-number');
@@ -125,8 +138,6 @@ var clickHandler = function(targetElement) {
         songItem.innerHTML = pauseButtonTemplate;
         currentlyPlayingSong = songItem.getAttribute('data-song-number');
   }
-
-
 };
 
 
